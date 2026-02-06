@@ -5,7 +5,6 @@ import com.devseniorcode.model.Task;
 import com.devseniorcode.model.TaskNotFoundException;
 
 import java.util.List;
-import java.util.UUID;
 
 public class GetTask {
     private GetTask() {}
@@ -17,9 +16,9 @@ public class GetTask {
         tasks.forEach(Imprimable::show);
     }
 
-    public static Task getId(List<Task> tasks, UUID id) throws TaskNotFoundException {
+    public static Task getId(List<Task> tasks, int id) throws TaskNotFoundException {
         return tasks.stream()
-                .filter(task -> task.getId().equals(id))
+                .filter(task -> task.getId() == id)
                 .findFirst()
                 .orElseThrow(() -> new TaskNotFoundException("No existe Task"));
     }

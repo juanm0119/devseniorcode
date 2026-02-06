@@ -2,25 +2,24 @@ package com.devseniorcode.usecases;
 
 import com.devseniorcode.model.Task;
 import com.devseniorcode.model.TaskNotFoundException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
-import java.util.UUID;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 
+@Slf4j
 public class DropTask {
-
-    private static final Logger LOG = LoggerFactory.getLogger(DropTask.class);
-
     private DropTask() {}
 
-    public static void remove(List<Task> tasks, UUID id) {
+    public static void remove(Scanner reader, List<Task> tasks) {
         try {
-            var task = GetTask.getId(tasks, id);
+            System.out.print("ID del Task: ");
+            var task = GetTask.getId(tasks, Integer.parseInt(reader.nextLine().strip()));
             tasks.remove(task);
-        } catch (TaskNotFoundException e) {
-            LOG.error(e.getMessage());
+            log.info("Task eliminada");
+        } catch (NoSuchElementException | TaskNotFoundException e) {
+            log.error(e.getMessage());
         }
-
     }
 }

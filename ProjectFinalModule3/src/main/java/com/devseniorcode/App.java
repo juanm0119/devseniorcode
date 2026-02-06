@@ -1,23 +1,21 @@
 package com.devseniorcode;
 
-import com.devseniorcode.model.OptionInvalidException;
-import com.devseniorcode.model.Task;
-import com.devseniorcode.model.TaskInvalidDataException;
-import com.devseniorcode.model.TaskNotFoundException;
+import com.devseniorcode.model.*;
 import com.devseniorcode.usecases.CompleteTask;
 import com.devseniorcode.usecases.DropTask;
 import com.devseniorcode.usecases.GetTask;
 import com.devseniorcode.usecases.NewTask;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
-import java.util.UUID;
 
+@Slf4j
 public class App {
 
-    private static final Logger LOG = LoggerFactory.getLogger(App.class);
+    private static List<Task> tasks = new ArrayList<>();
+    private static final Scanner READER = new Scanner(System.in);
 
     private App() {
     }
@@ -28,18 +26,19 @@ public class App {
 
     static void run() {
         short option = 0;
-        Scanner reader = new Scanner(System.in);
+        log.info("Task Manager is running");
 
         do {
             try {
                 showOptions();
-                option = reader.nextShort();
+                option = Short.parseShort(READER.nextLine().strip());
+                applyOperation(option);
             } catch (OptionInvalidException e) {
-                LOG.error(e.getMessage());
+                log.error(e.getMessage());
             }
         } while (option != 5);
 
-        reader.close();
+        READER.close();
     }
 
     static void showOptions() {
@@ -47,43 +46,37 @@ public class App {
     }
 
     static void applyOperation(short option) {
-        var tasks = new ArrayList<Task>();
 
         switch (option) {
             case 1:
-                LOG.info("Mostrar Tasks");
+                log.info("Mostrar Tasks");
                 try {
                     GetTask.showTasks(tasks);
                 } catch (TaskNotFoundException e) {
-                    LOG.error(e.getMessage());
+                    log.warn(e.getMessage());
                 }
-
                 break;
             case 2:
                 try {
-                    LOG.info("Crear Task");
-                    NewTask.add(tasks, new Task());
+                    log.info("Crear Task");
+                    NewTask.add(READER, tasks, new Task());
                 } catch (TaskInvalidDataException e) {
-                    LOG.error(e.getMessage());
+                    log.error(e.getMessage());
                 }
-
                 break;
             case 3:
-                LOG.info("Borrar Task");
-                DropTask.remove(tasks, UUID.randomUUID());
-
+                log.info("Borrar Task");
+                DropTask.remove(READER, tasks);
                 break;
             case 4:
-                LOG.info("Marcar Task Completa");
-                CompleteTask.complete(tasks, UUID.randomUUID());
-
+                log.info("Marcar Task Completa");
+                CompleteTask.complete(READER, tasks);
                 break;
             case 5:
-                LOG.info("Salir Task Manager");
+                log.info("Salir Task Manager");
                 System.out.println("Saliendo de Task Manager...");
                 break;
             default:
-                LOG.error("Opcion no existe");
                 throw new OptionInvalidException("Opcion no existe");
         }
     }

@@ -4,25 +4,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.UUID;
-
 @Getter
 @Setter
 @NoArgsConstructor
 public class Task implements Imprimable {
-    private UUID id = UUID.randomUUID();
+    private static int idIncrement = 1;
+    private int id = idIncrement++;
     private String description;
-    private TaskStatus status = TaskStatus.NEW;
-
-    public Task(String description) {
-        this.description = description;
-    }
+    private TaskStatus status = TaskStatus.PROCESS;
 
     @Override
     public void show() {
         System.out.printf(
-                "ID: %s\n Description: %s\n Status: %s\n",
-                id.toString(), description, status.name()
+                "ID: %d%nDescription: %s%nStatus: %s%n",
+                id, description, status.name()
         );
     }
 }
