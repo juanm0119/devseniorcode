@@ -13,6 +13,10 @@ public class Task implements Imprimable {
     private String description;
     private TaskStatus status = TaskStatus.PROCESS;
 
+    public Task(String description) {
+        this.description = description;
+    }
+
     @Override
     public void show() {
         System.out.printf(

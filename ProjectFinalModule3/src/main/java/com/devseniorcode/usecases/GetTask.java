@@ -16,7 +16,7 @@ public class GetTask {
         tasks.forEach(Imprimable::show);
     }
 
-    public static Task getId(List<Task> tasks, int id) throws TaskNotFoundException {
+    public static Task getId(List<Task> tasks, int id) {
         return tasks.stream()
                 .filter(task -> task.getId() == id)
                 .findFirst()

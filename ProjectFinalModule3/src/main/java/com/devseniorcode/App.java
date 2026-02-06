@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 @Slf4j
@@ -46,7 +47,7 @@ public class App {
     }
 
     static void applyOperation(short option) {
-
+        String value;
         switch (option) {
             case 1:
                 log.info("Mostrar Tasks");
@@ -59,18 +60,29 @@ public class App {
             case 2:
                 try {
                     log.info("Crear Task");
-                    NewTask.add(READER, tasks, new Task());
+                    value = getValue("Descripcion del Task: ");
+                    NewTask.add(tasks, new Task(value));
                 } catch (TaskInvalidDataException e) {
                     log.error(e.getMessage());
                 }
                 break;
             case 3:
-                log.info("Borrar Task");
-                DropTask.remove(READER, tasks);
+                try {
+                    log.info("Borrar Task");
+                    value = getValue("ID del Task: ");
+                    DropTask.remove((ArrayList<Task>) tasks, Integer.parseInt(value));
+                } catch (TaskInvalidDataException | TaskNotFoundException e) {
+                    log.error(e.getMessage());
+                }
                 break;
             case 4:
-                log.info("Marcar Task Completa");
-                CompleteTask.complete(READER, tasks);
+                try {
+                    log.info("Marcar Task Completa");
+                    value = getValue("ID del Task: ");
+                    CompleteTask.complete(tasks, Integer.parseInt(value));
+                } catch (TaskInvalidDataException | TaskNotFoundException e) {
+                    log.error(e.getMessage());
+                }
                 break;
             case 5:
                 log.info("Salir Task Manager");
@@ -79,5 +91,17 @@ public class App {
             default:
                 throw new OptionInvalidException("Opcion no existe");
         }
+    }
+
+    static String getValue(String message) throws TaskInvalidDataException {
+        System.out.print(message);
+
+        var value = READER.nextLine().strip();
+
+        if (value.isEmpty()) {
+            throw new TaskInvalidDataException("Dato ingresado del Task incorrecto");
+        }
+
+        return value;
     }
 }
