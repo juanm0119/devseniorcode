@@ -1,4 +1,4 @@
-package com.devseniorcode.model;
+package com.devseniorcode.exceptions;
 
 public class TaskInvalidDataException extends Exception {
     public TaskInvalidDataException(String message) {

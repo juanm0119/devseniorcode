@@ -1,5 +1,8 @@
 package com.devseniorcode;
 
+import com.devseniorcode.exceptions.OptionInvalidException;
+import com.devseniorcode.exceptions.TaskInvalidDataException;
+import com.devseniorcode.exceptions.TaskNotFoundException;
 import com.devseniorcode.model.*;
 import com.devseniorcode.usecases.CompleteTask;
 import com.devseniorcode.usecases.DropTask;

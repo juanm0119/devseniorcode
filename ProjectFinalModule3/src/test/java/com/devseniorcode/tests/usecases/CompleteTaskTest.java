@@ -1,7 +1,7 @@
 package com.devseniorcode.tests.usecases;
 
 import com.devseniorcode.model.Task;
-import com.devseniorcode.model.TaskNotFoundException;
+import com.devseniorcode.exceptions.TaskNotFoundException;
 import com.devseniorcode.model.TaskStatus;
 import com.devseniorcode.usecases.CompleteTask;
 import org.junit.jupiter.api.AfterEach;

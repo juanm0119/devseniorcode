@@ -2,7 +2,7 @@ package com.devseniorcode.usecases;
 
 import com.devseniorcode.model.Imprimable;
 import com.devseniorcode.model.Task;
-import com.devseniorcode.model.TaskNotFoundException;
+import com.devseniorcode.exceptions.TaskNotFoundException;
 
 import java.util.List;
 
