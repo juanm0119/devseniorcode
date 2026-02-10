@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 @Slf4j
@@ -70,7 +69,7 @@ public class App {
                 try {
                     log.info("Borrar Task");
                     value = getValue("ID del Task: ");
-                    DropTask.remove((ArrayList<Task>) tasks, Integer.parseInt(value));
+                    DropTask.remove(tasks, Integer.parseInt(value));
                 } catch (TaskInvalidDataException | TaskNotFoundException e) {
                     log.error(e.getMessage());
                 }

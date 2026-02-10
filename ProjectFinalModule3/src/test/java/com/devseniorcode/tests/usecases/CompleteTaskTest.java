@@ -19,7 +19,7 @@ class CompleteTaskTest {
 
     @Test
     void changeStatusTaskTest() {
-        CompleteTask.complete(tasks, 1);
+        assertDoesNotThrow(() -> CompleteTask.complete(tasks, 1));
         assertEquals(TaskStatus.COMPLETE, tasks.getFirst().getStatus());
     }
 
