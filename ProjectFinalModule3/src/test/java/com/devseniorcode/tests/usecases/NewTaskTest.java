@@ -14,7 +14,7 @@ class NewTaskTest {
     private static List<Task> tasks = new ArrayList<>();
 
     @Test
-    void addTest() {
+    void testAdd() {
         var task = new Task();
         task.setDescription("Aseo de la casa");
         NewTask.add(tasks, task);

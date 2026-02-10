@@ -26,13 +26,13 @@ class CompleteTaskTest {
     }
 
     @Test
-    void changeStatusTaskTest() {
+    void testChangeStatusTaskComplete() {
         assertDoesNotThrow(() -> CompleteTask.complete(tasks, 1));
         assertEquals(TaskStatus.COMPLETE, tasks.getFirst().getStatus());
     }
 
     @Test
-    void taskNotFoundTest() {
+    void testTaskNotFound() {
         assertThrows(TaskNotFoundException.class, () -> CompleteTask.complete(tasks, 4));
     }
 

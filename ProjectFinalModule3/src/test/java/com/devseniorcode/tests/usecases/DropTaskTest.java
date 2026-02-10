@@ -24,14 +24,14 @@ class DropTaskTest {
     }
 
     @Test
-    void removeTaskTest() {
+    void testRemoveTask() {
         var size = tasks.size();
         DropTask.remove(tasks, 1);
         assertNotEquals(size, tasks.size());
     }
 
     @Test
-    void taskNotFoundTest() {
+    void testTaskNotFound() {
         assertThrows(TaskNotFoundException.class, () -> DropTask.remove(tasks, 4));
     }
 }

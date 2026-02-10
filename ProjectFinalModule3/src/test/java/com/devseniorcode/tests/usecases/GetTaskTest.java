@@ -24,26 +24,26 @@ class GetTaskTest {
     }
 
     @Test
-    void showTasksTest() {
+    void testShowTasks() {
         assertDoesNotThrow(() -> GetTask.showTasks(tasks));
     }
 
     @Test
-    void showTasksNotFoundTest() {
+    void testShowTasksNotFound() {
         tasks.clear();
         var exception = assertThrows(TaskNotFoundException.class, () -> GetTask.showTasks(tasks));
         assertEquals("No hay tasks", exception.getMessage());
     }
 
     @Test
-    void getTaskTest() {
+    void testGetTask() {
         var item = GetTask.getId(tasks, 1);
         assertNotNull(item);
         assertInstanceOf(Task.class, item);
     }
 
     @Test
-    void taskNotFoundTest() {
+    void testTaskNotFound() {
         tasks.clear();
         assertThrows(TaskNotFoundException.class, () -> GetTask.getId(tasks, 3));
     }
