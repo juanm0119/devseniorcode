@@ -8,8 +8,7 @@ import java.util.List;
 
 @Slf4j
 public class CompleteTask {
-    private CompleteTask() {
-    }
+    private CompleteTask() {}
 
     public static void complete(List<Task> tasks, int id) {
         var task = GetTask.getId(tasks, id);

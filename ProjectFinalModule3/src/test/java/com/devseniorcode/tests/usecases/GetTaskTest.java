@@ -13,13 +13,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GetTaskTest {
 
-    private static List<Task> tasks = new ArrayList<>();
+    private List<Task> tasks;
 
     @BeforeEach
     void setUp() {
-        tasks.add(new Task("Aseo"));
-        tasks.add(new Task("Jugar"));
-        tasks.add(new Task("Colegio"));
+        tasks = new ArrayList<>();
+        tasks.add(new Task(1, "Aseo"));
+        tasks.add(new Task(2, "Jugar"));
+        tasks.add(new Task(3, "Colegio"));
     }
 
     @Test
@@ -29,18 +30,21 @@ class GetTaskTest {
 
     @Test
     void showTasksNotFoundTest() {
-        var items = new ArrayList<Task>();
-        var exception = assertThrows(TaskNotFoundException.class, () -> GetTask.showTasks(items));
+        tasks.clear();
+        var exception = assertThrows(TaskNotFoundException.class, () -> GetTask.showTasks(tasks));
         assertEquals("No hay tasks", exception.getMessage());
     }
 
     @Test
     void getTaskTest() {
-        assertNotNull(GetTask.getId(tasks, 1));
+        var item = GetTask.getId(tasks, 1);
+        assertNotNull(item);
+        assertInstanceOf(Task.class, item);
     }
 
     @Test
     void taskNotFoundTest() {
+        tasks.clear();
         assertThrows(TaskNotFoundException.class, () -> GetTask.getId(tasks, 3));
     }
 }

@@ -9,11 +9,18 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Task implements Imprimable {
     private static int idIncrement = 1;
-    private int id = idIncrement++;
+
+    private int id;
     private String description;
     private TaskStatus status = TaskStatus.PROCESS;
 
     public Task(String description) {
+        this.id = idIncrement++;
+        this.description = description;
+    }
+
+    public Task(int id, String description) {
+        this.id = id;
         this.description = description;
     }
 
