@@ -13,11 +13,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DropTaskTest {
 
-    private List<Task> tasks;
+    private static List<Task> tasks = new ArrayList<>();
 
     @BeforeEach
     void setUp() {
-        tasks = new ArrayList<>();
         tasks.add(new Task(1, "Aseo"));
         tasks.add(new Task(2, "Jugar"));
         tasks.add(new Task(3,"Colegio"));

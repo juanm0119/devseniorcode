@@ -3,6 +3,7 @@ package com.devseniorcode;
 import com.devseniorcode.exceptions.OptionInvalidException;
 import com.devseniorcode.exceptions.TaskInvalidDataException;
 import com.devseniorcode.exceptions.TaskNotFoundException;
+import com.devseniorcode.exceptions.TaskStatusException;
 import com.devseniorcode.model.*;
 import com.devseniorcode.usecases.CompleteTask;
 import com.devseniorcode.usecases.DropTask;
@@ -82,7 +83,7 @@ public class App {
                     log.info("Marcar Task Completa");
                     value = getValue("ID del Task: ");
                     CompleteTask.complete(tasks, Integer.parseInt(value));
-                } catch (TaskInvalidDataException | TaskNotFoundException e) {
+                } catch (TaskInvalidDataException | TaskNotFoundException | TaskStatusException e) {
                     log.error(e.getMessage());
                 }
                 break;
