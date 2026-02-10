@@ -49,7 +49,7 @@ public class App {
         System.out.println("1. Mostrar Tareas\n2. Agregar Tarea\n3. Eliminar Tarea\n4. Marcar Tarea Completa\n5. Salir");
     }
 
-    static void applyOperation(short option) {
+    public static void applyOperation(short option) {
         String value;
         switch (option) {
             case 1:
