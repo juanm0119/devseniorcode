@@ -18,13 +18,13 @@ public class GetTask {
     }
 
     public static Task getId(List<Task> tasks, String id) {
-        if (!id.matches("^\\d+$")) {
-            throw new TaskInvalidDataException("El ID de task debe ser un numero");
+        try {
+            return tasks.stream()
+                    .filter(task -> task.getId() == Integer.parseInt(id))
+                    .findFirst()
+                    .orElseThrow(() -> new TaskNotFoundException("No existe Task"));
+        } catch (NumberFormatException _) {
+            throw new TaskInvalidDataException("El ID del task debe ser un numero");
         }
-
-        return tasks.stream()
-                .filter(task -> task.getId() == Integer.parseInt(id))
-                .findFirst()
-                .orElseThrow(() -> new TaskNotFoundException("No existe Task"));
     }
 }
