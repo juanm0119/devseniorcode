@@ -1,5 +1,6 @@
 package com.devseniorcode.tests.usecases;
 
+import com.devseniorcode.exceptions.TaskInvalidDataException;
 import com.devseniorcode.model.Task;
 import com.devseniorcode.usecases.NewTask;
 import org.junit.jupiter.api.Test;
@@ -14,11 +15,17 @@ class NewTaskTest {
     private static List<Task> tasks = new ArrayList<>();
 
     @Test
-    void testAdd() {
+    void testAddTaskDataInvalid() {
         var task = new Task();
-        task.setDescription("Aseo de la casa");
-        NewTask.add(tasks, task);
+        task.setDescription("");
+        assertThrows(TaskInvalidDataException.class, () -> NewTask.add(tasks, task));
+    }
 
+    @Test
+    void testAddSuccess() {
+        var task = new Task();
+        task.setDescription("Aseo");
+        assertDoesNotThrow(() -> NewTask.add(tasks, task));
         assertFalse(tasks.isEmpty());
     }
 }

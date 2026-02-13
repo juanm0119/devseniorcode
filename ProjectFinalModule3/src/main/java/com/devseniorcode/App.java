@@ -74,7 +74,7 @@ public class App {
                     log.info("Borrar Task");
                     value = getValue("ID del Task: ");
                     DropTask.remove(tasks, Integer.parseInt(value));
-                } catch (TaskInvalidDataException | TaskNotFoundException e) {
+                } catch (NumberFormatException | TaskNotFoundException e) {
                     log.error(e.getMessage());
                 }
                 break;
@@ -83,7 +83,7 @@ public class App {
                     log.info("Marcar Task Completa");
                     value = getValue("ID del Task: ");
                     CompleteTask.complete(tasks, Integer.parseInt(value));
-                } catch (TaskInvalidDataException | TaskNotFoundException | TaskStatusException e) {
+                } catch (NumberFormatException | TaskNotFoundException | TaskStatusException e) {
                     log.error(e.getMessage());
                 }
                 break;
@@ -96,15 +96,8 @@ public class App {
         }
     }
 
-    static String getValue(String message) throws TaskInvalidDataException {
+    static String getValue(String message) {
         System.out.print(message);
-
-        var value = READER.nextLine().strip();
-
-        if (value.isEmpty()) {
-            throw new TaskInvalidDataException("Dato ingresado del Task incorrecto");
-        }
-
-        return value;
+        return READER.nextLine().strip();
     }
 }
