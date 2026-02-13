@@ -1,5 +1,6 @@
 package com.devseniorcode.tests.usecases;
 
+import com.devseniorcode.exceptions.TaskInvalidDataException;
 import com.devseniorcode.model.Task;
 import com.devseniorcode.exceptions.TaskNotFoundException;
 import com.devseniorcode.usecases.GetTask;
@@ -36,8 +37,13 @@ class GetTaskTest {
     }
 
     @Test
-    void testGetTask() {
-        var item = GetTask.getId(tasks, 1);
+    void testGetTaskIDInvalid() {
+        assertThrows(TaskInvalidDataException.class, () -> GetTask.getId(tasks, "n"));
+    }
+
+    @Test
+    void testGetTaskSuccess() {
+        var item = GetTask.getId(tasks, "1");
         assertNotNull(item);
         assertInstanceOf(Task.class, item);
     }
@@ -45,6 +51,6 @@ class GetTaskTest {
     @Test
     void testTaskNotFound() {
         tasks.clear();
-        assertThrows(TaskNotFoundException.class, () -> GetTask.getId(tasks, 3));
+        assertThrows(TaskNotFoundException.class, () -> GetTask.getId(tasks, "3"));
     }
 }

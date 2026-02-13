@@ -9,7 +9,7 @@ import java.util.List;
 public class DropTask {
     private DropTask() {}
 
-    public static void remove(List<Task> tasks, int id) {
+    public static void remove(List<Task> tasks, String id) {
         var task = GetTask.getId(tasks, id);
         tasks.remove(task);
         log.info("Task eliminada");

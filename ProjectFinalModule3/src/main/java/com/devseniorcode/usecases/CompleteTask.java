@@ -11,7 +11,7 @@ import java.util.List;
 public class CompleteTask {
     private CompleteTask() {}
 
-    public static void complete(List<Task> tasks, int id) throws TaskStatusException {
+    public static void complete(List<Task> tasks, String id) throws TaskStatusException {
         var task = GetTask.getId(tasks, id);
 
         if (task.getStatus() == TaskStatus.COMPLETE) {

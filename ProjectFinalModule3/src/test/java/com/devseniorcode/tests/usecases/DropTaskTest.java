@@ -1,5 +1,6 @@
 package com.devseniorcode.tests.usecases;
 
+import com.devseniorcode.exceptions.TaskInvalidDataException;
 import com.devseniorcode.model.Task;
 import com.devseniorcode.exceptions.TaskNotFoundException;
 import com.devseniorcode.usecases.DropTask;
@@ -23,14 +24,19 @@ class DropTaskTest {
     }
 
     @Test
+    void testRemoveTaskInvalidID() {
+        assertThrows(TaskInvalidDataException.class, () -> DropTask.remove(tasks, "n"));
+    }
+
+    @Test
     void testRemoveTask() {
         var size = tasks.size();
-        DropTask.remove(tasks, 1);
+        DropTask.remove(tasks, "1");
         assertNotEquals(size, tasks.size());
     }
 
     @Test
     void testTaskNotFound() {
-        assertThrows(TaskNotFoundException.class, () -> DropTask.remove(tasks, 4));
+        assertThrows(TaskNotFoundException.class, () -> DropTask.remove(tasks, "4"));
     }
 }

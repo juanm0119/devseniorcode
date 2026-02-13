@@ -1,5 +1,6 @@
 package com.devseniorcode.tests.usecases;
 
+import com.devseniorcode.exceptions.TaskInvalidDataException;
 import com.devseniorcode.exceptions.TaskStatusException;
 import com.devseniorcode.model.Task;
 import com.devseniorcode.exceptions.TaskNotFoundException;
@@ -26,8 +27,13 @@ class CompleteTaskTest {
     }
 
     @Test
+    void testChangeStatusTaskCompleteInvalidID() {
+        assertThrows(TaskInvalidDataException.class, () -> CompleteTask.complete(tasks, "n"));
+    }
+
+    @Test
     void testChangeStatusTaskComplete() {
-        assertDoesNotThrow(() -> CompleteTask.complete(tasks, 1));
+        assertDoesNotThrow(() -> CompleteTask.complete(tasks, "1"));
         assertEquals(TaskStatus.COMPLETE, tasks.getFirst().getStatus());
     }
 
@@ -35,12 +41,12 @@ class CompleteTaskTest {
     void testTaskWasCompleteStatus() {
         var task = tasks.getFirst();
         task.setStatus(TaskStatus.COMPLETE);
-        assertThrows(TaskStatusException.class, () -> CompleteTask.complete(tasks, 1));
+        assertThrows(TaskStatusException.class, () -> CompleteTask.complete(tasks, "1"));
     }
 
     @Test
     void testTaskNotFound() {
-        assertThrows(TaskNotFoundException.class, () -> CompleteTask.complete(tasks, 4));
+        assertThrows(TaskNotFoundException.class, () -> CompleteTask.complete(tasks, "4"));
     }
 
     @AfterEach

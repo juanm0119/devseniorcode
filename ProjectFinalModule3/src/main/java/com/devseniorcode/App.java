@@ -73,8 +73,8 @@ public class App {
                 try {
                     log.info("Borrar Task");
                     value = getValue("ID del Task: ");
-                    DropTask.remove(tasks, Integer.parseInt(value));
-                } catch (NumberFormatException | TaskNotFoundException e) {
+                    DropTask.remove(tasks, value);
+                } catch (TaskInvalidDataException | TaskNotFoundException e) {
                     log.error(e.getMessage());
                 }
                 break;
@@ -82,8 +82,8 @@ public class App {
                 try {
                     log.info("Marcar Task Completa");
                     value = getValue("ID del Task: ");
-                    CompleteTask.complete(tasks, Integer.parseInt(value));
-                } catch (NumberFormatException | TaskNotFoundException | TaskStatusException e) {
+                    CompleteTask.complete(tasks, value);
+                } catch (TaskInvalidDataException | TaskNotFoundException | TaskStatusException e) {
                     log.error(e.getMessage());
                 }
                 break;
